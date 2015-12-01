@@ -16,12 +16,52 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HwI-zr-Big" userLabel="Record Button">
+                                <rect key="frame" x="250" y="250" width="100" height="100"/>
+                                <animations/>
+                                <state key="normal" image="microphone"/>
+                                <connections>
+                                    <action selector="recordAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uLy-cA-4kC"/>
+                                </connections>
+                            </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recording" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbe-w7-ZU1">
+                                <rect key="frame" x="264" y="358" width="72" height="20"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYR-2R-910" userLabel="Stop Button">
+                                <rect key="frame" x="275" y="530" width="50" height="50"/>
+                                <animations/>
+                                <state key="normal" image="stop"/>
+                                <connections>
+                                    <action selector="stopRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wzY-oZ-DP3"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TYR-2R-910" secondAttribute="bottom" constant="20" id="CDc-NP-4IB"/>
+                            <constraint firstItem="HwI-zr-Big" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="JmG-h8-pZk"/>
+                            <constraint firstItem="pbe-w7-ZU1" firstAttribute="top" secondItem="HwI-zr-Big" secondAttribute="bottom" constant="8" id="Rbm-3C-kLO"/>
+                            <constraint firstItem="TYR-2R-910" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uDK-Bp-AcD"/>
+                            <constraint firstItem="pbe-w7-ZU1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vmB-hw-oZF"/>
+                            <constraint firstItem="HwI-zr-Big" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xaO-M8-WgJ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="recordingInProgress" destination="pbe-w7-ZU1" id="YyR-j5-6el"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="microphone" width="100" height="100"/>
+        <image name="stop" width="50" height="50"/>
+    </resources>
 </document>
