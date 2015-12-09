@@ -9,7 +9,7 @@
         <!--Record-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pitch_Perfect" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RecordSoundsViewController" customModule="Pitch_Perfect" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -23,7 +23,7 @@
                                 <animations/>
                                 <state key="normal" image="microphone"/>
                                 <connections>
-                                    <action selector="recordAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uLy-cA-4kC"/>
+                                    <action selector="recordAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JjA-fZ-r6q"/>
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recording" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbe-w7-ZU1">
@@ -38,8 +38,7 @@
                                 <animations/>
                                 <state key="normal" image="stop"/>
                                 <connections>
-                                    <action selector="stopRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wzY-oZ-DP3"/>
-                                    <segue destination="Kla-Gh-3NJ" kind="show" id="Bje-Ud-GeH"/>
+                                    <action selector="stopRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="huf-Yb-uPQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -56,9 +55,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Record" id="b6y-vK-b99"/>
                     <connections>
-                        <outlet property="recordButton" destination="HwI-zr-Big" id="yp1-gd-hvn"/>
+                        <outlet property="recordButton" destination="HwI-zr-Big" id="Hhf-Ob-sNC"/>
                         <outlet property="recordingInProgress" destination="pbe-w7-ZU1" id="YyR-j5-6el"/>
-                        <outlet property="stopButton" destination="TYR-2R-910" id="2tO-gp-mNu"/>
+                        <outlet property="stopButton" destination="TYR-2R-910" id="l6R-N1-U4N"/>
+                        <segue destination="Kla-Gh-3NJ" kind="show" identifier="stopRecording" id="AkU-i5-cgV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

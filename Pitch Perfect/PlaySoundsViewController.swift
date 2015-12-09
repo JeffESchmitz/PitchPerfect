@@ -12,15 +12,18 @@ import AVFoundation
 class PlaySoundsViewController: UIViewController {
     
     var audioPlayer:AVAudioPlayer!
+    var receivedAudio:RecordedAudio!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let filePath = NSBundle.mainBundle().URLForResource("movie_quote", withExtension: "mp3") {
-            audioPlayer = try! AVAudioPlayer(contentsOfURL: filePath)
-        } else {
-            print("the filePath is empty")
-        }
+//        if let filePath = NSBundle.mainBundle().URLForResource("movie_quote", withExtension: "mp3") {
+//        } else {
+//            print("the filePath is empty")
+//        }
+        
+        audioPlayer = try! AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
+        audioPlayer.enableRate = true
     }
 
     override func didReceiveMemoryWarning() {
