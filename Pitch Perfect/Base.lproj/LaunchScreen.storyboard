@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pitch Perfect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSs-ps-kf7">
-                                <rect key="frame" x="190" y="278" width="221" height="43"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pitch Perfect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSs-ps-kf7">
+                                <rect key="frame" x="198.5" y="265.5" width="204" height="49.5"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -26,7 +26,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.023529411760000001" green="0.38823529410000002" blue="0.54901960780000003" alpha="0.95999999999999996" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="uSs-ps-kf7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="pRj-vg-Wpd"/>
+                            <constraint firstItem="uSs-ps-kf7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-10" id="pRj-vg-Wpd"/>
                             <constraint firstItem="uSs-ps-kf7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="z1v-3l-leE"/>
                         </constraints>
                     </view>
