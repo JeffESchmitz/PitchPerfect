@@ -123,6 +123,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="ttd-2e-BYv" secondAttribute="trailing" constant="30" id="oWw-68-v9I"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="stopButton" destination="EFL-1k-Phl" id="dNO-YZ-iZF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HwL-jk-LTR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -1,10 +1,8 @@
-//
 //  PlaySoundsViewController.swift
 //  Pitch Perfect
 //
 //  Created by Jeff Schmitz on 12/6/15.
 //  Copyright © 2015 Jeff Schmitz. All rights reserved.
-//
 
 import UIKit
 import AVFoundation
@@ -16,11 +14,14 @@ class PlaySoundsViewController: UIViewController {
     var receivedAudio:RecordedAudio!
     var audioEngine:AVAudioEngine!
     var audioFile:AVAudioFile!
+    @IBOutlet weak var stopButton: UIButton!
     
     // MARK: - View's overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        stopButton.enabled = false
+       
         do {
             try audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
         } catch {
@@ -42,44 +43,55 @@ class PlaySoundsViewController: UIViewController {
     }
     
     // MARK: - UI Interface Builder handler functions
+    @IBAction func stopPlayingAudio(sender: UIButton) {
+        audioPlayer.stop()
+        stopButton.enabled = false
+    }
+
     @IBAction func playSlowAudio(sender: UIButton) {
-        playAudioWithVariableRate(0.5)
+        playAudioWithVariableEffect(AudioEffect.Slow)
     }
 
     @IBAction func playFastAudio(sender: UIButton) {
-        playAudioWithVariableRate(1.5)
-    }
-    
-    @IBAction func stopPlayingAudio(sender: UIButton) {
-        audioPlayer.stop()
+        playAudioWithVariableEffect(AudioEffect.Fast)
     }
     
     @IBAction func playChipmunkAudio(sender: UIButton) {
-        playAudioWithVariablePitch(1000)
+        playAudioWithVariableEffect(AudioEffect.Chipmunk)
     }
     
     @IBAction func playDarthvaderAudio(sender: UIButton) {
-        playAudioWithVariablePitch(-1000)
+        playAudioWithVariableEffect(AudioEffect.DarthVader)
     }
     
     // MARK: - PlaySoundsViewController functions
-    func playAudioWithVariableRate(rate: Float) -> Void {
+    func playAudioWithVariableEffect(audioEffect: AudioEffect) {
         audioPlayer.stop()
         audioEngine.stop()
         audioEngine.reset()
         
+        switch audioEffect {
+        case .Slow:
+            fallthrough
+        case .Fast:
+            playAudioWithVariableRate(audioEffect.rawValue)
+        case .Chipmunk:
+            fallthrough
+        case .DarthVader:
+            playAudioWithVariablePitch(audioEffect.rawValue)
+        }
+        
+        stopButton.enabled = true
+    }
+    
+    func playAudioWithVariableRate(rate: Float) -> Void {
         audioPlayer.enableRate = true
         audioPlayer.rate = rate
         audioPlayer.currentTime = 0.0
-        
         audioPlayer.play()
     }
     
     func playAudioWithVariablePitch(pitch: Float) {
-        audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
-        
         let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
@@ -109,5 +121,11 @@ class PlaySoundsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
 
+enum AudioEffect: Float {
+    case Slow = 0.5
+    case Fast = 1.5
+    case Chipmunk = 1000
+    case DarthVader = -1000
 }

@@ -8,12 +8,12 @@ import UIKit
 import AVFoundation
 
 class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
-    
+
     // MARK: - UI Interface Builder Outlet fields
     @IBOutlet weak var recordingInProgress: UILabel!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
-    
+
     // MARK: - RecordSoundsViewController fields
     var audioRecorder:AVAudioRecorder!
     var recordedAudio:RecordedAudio!
@@ -21,19 +21,21 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     let backgroundLightRed = UIColor(red: 1.00, green: 0.89, blue: 0.89, alpha: 1.0)
     let tapToRecordText = "tap to record"
     let recordingInProgressText = "recording in progress..."
+    let recordingName = "my_audio.wav"
     let playSoundsSegueIdentifier = "stopRecording"
+    let recordingNotSuccessfulText = "Recording was not successful"
     
     // MARK: - View's overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -49,7 +51,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             playSoundsViewController.receivedAudio = data
         }
     }
-
+    
     // MARK: - UI Interface Builder handler functions
     @IBAction func recordAudio(sender: UIButton) {
         changeViewBackgroundColor(backgroundLightRed)
@@ -58,10 +60,8 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         recordButton.enabled = false
         recordingInProgress.text = recordingInProgressText
         
-        let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        
-        let recordingName = "my_audio.wav"
-        let pathArray = [dirPath, recordingName]
+        let directoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let pathArray = [directoryPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
         print(filePath)
         
@@ -105,7 +105,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     // MARK: - AVAudioRecorderDelegate implementation
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {
-            print("Recording was not successful")
+            print(recordingNotSuccessfulText)
             recordButton.enabled = true
             stopButton.hidden = true
             return
@@ -123,7 +123,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         UIView.animateWithDuration(0.25, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
             self.view.backgroundColor = color
             }, completion: nil)
-
     }
 }
 
