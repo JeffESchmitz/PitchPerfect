@@ -19,7 +19,9 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     var recordedAudio:RecordedAudio!
     let backgroundLightBlue = UIColor(red: 0.94, green: 1.00, blue: 1.00, alpha: 1.0)
     let backgroundLightRed = UIColor(red: 1.00, green: 0.89, blue: 0.89, alpha: 1.0)
-    
+    let tapToRecordText = "tap to record"
+    let recordingInProgressText = "recording in progress..."
+    let playSoundsSegueIdentifier = "stopRecording"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         
         stopButton.hidden = true
         recordButton.enabled = true
+        recordingInProgress.text = tapToRecordText
     }
     
     @IBAction func recordAudio(sender: UIButton) {
@@ -43,6 +46,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         stopButton.hidden = false
         recordingInProgress.hidden = false
         recordButton.enabled = false
+        recordingInProgress.text = recordingInProgressText
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         
@@ -62,15 +66,26 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.record()
     }
     
+    @IBAction func stopRecording(sender: UIButton) {
+        audioRecorder.stop()
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setActive(false)
+        } catch {
+            print(error)
+        }
+        changeViewBackgroundColor(backgroundLightBlue)
+        recordingInProgress.text = tapToRecordText
+        recordButton.enabled = true
+    }
+    
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             // Save recorded audio
-            recordedAudio = RecordedAudio()
-            recordedAudio.filePathUrl = recorder.url
-            recordedAudio.title = recorder.url.lastPathComponent
+            recordedAudio = RecordedAudio(filePathUrl: recorder.url, title: recorder.url.lastPathComponent!)
             
             // navigate to PlaySoundsController scene
-            self.performSegueWithIdentifier("stopRecording", sender: recordedAudio)
+            self.performSegueWithIdentifier(playSoundsSegueIdentifier, sender: recordedAudio)
         } else {
             print("Recording was not successful")
             recordButton.enabled = true
@@ -79,24 +94,11 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "stopRecording" {
+        if segue.identifier == playSoundsSegueIdentifier {
             let playSoundsViewController:PlaySoundsViewController = segue.destinationViewController as! PlaySoundsViewController
             let data = sender as! RecordedAudio
             playSoundsViewController.receivedAudio = data
         }
-    }
-
-    @IBAction func stopRecording(sender: UIButton) {
-        audioRecorder.stop()
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setActive(false)
-        } catch {
-            print("error occured while deactivating audioSession")
-        }
-        changeViewBackgroundColor(backgroundLightBlue)
-        recordingInProgress.hidden = true
-        recordButton.enabled = true
     }
 
     func changeViewBackgroundColor(color: UIColor) -> Void {
