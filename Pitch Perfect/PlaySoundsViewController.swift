@@ -11,11 +11,13 @@ import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
     
+    // MARK: - PlaySoundsViewController fields
     var audioPlayer:AVAudioPlayer!
     var receivedAudio:RecordedAudio!
     var audioEngine:AVAudioEngine!
     var audioFile:AVAudioFile!
     
+    // MARK: - View's overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +41,7 @@ class PlaySoundsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - UI Interface Builder handler functions
     @IBAction func playSlowAudio(sender: UIButton) {
         playAudioWithVariableRate(0.5)
     }
@@ -59,6 +62,7 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithVariablePitch(-1000)
     }
     
+    // MARK: - PlaySoundsViewController functions
     func playAudioWithVariableRate(rate: Float) -> Void {
         audioPlayer.stop()
         audioEngine.stop()
