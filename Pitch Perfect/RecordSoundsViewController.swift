@@ -7,7 +7,7 @@
 import UIKit
 import AVFoundation
 
-class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
+final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     // MARK: - UI Interface Builder Outlet fields
     @IBOutlet weak var recordingInProgress: UILabel!

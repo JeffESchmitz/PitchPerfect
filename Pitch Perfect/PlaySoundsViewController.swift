@@ -7,10 +7,11 @@
 import UIKit
 import AVFoundation
 
-class PlaySoundsViewController: UIViewController {
+final class PlaySoundsViewController: UIViewController {
     
     // MARK: - PlaySoundsViewController fields
     var audioPlayer:AVAudioPlayer!
+    var audioPlayerNode:AVAudioPlayerNode!
     var receivedAudio:RecordedAudio!
     var audioEngine:AVAudioEngine!
     var audioFile:AVAudioFile!
@@ -44,6 +45,7 @@ class PlaySoundsViewController: UIViewController {
     
     // MARK: - UI Interface Builder handler functions
     @IBAction func stopPlayingAudio(sender: UIButton) {
+        audioPlayerNode.stop()
         audioPlayer.stop()
         stopButton.enabled = false
     }
@@ -112,7 +114,7 @@ class PlaySoundsViewController: UIViewController {
     }
 
     func playAudioWithEffect(effect: AVAudioNode) {
-        let audioPlayerNode = AVAudioPlayerNode()
+        audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         audioEngine.attachNode(effect)
         
