@@ -49,28 +49,38 @@ class PlaySoundsViewController: UIViewController {
     }
 
     @IBAction func playSlowAudio(sender: UIButton) {
-        playAudioWithVariableEffect(AudioEffect.Slow)
+        playAudio(AudioEffect.Slow)
     }
 
     @IBAction func playFastAudio(sender: UIButton) {
-        playAudioWithVariableEffect(AudioEffect.Fast)
+        playAudio(AudioEffect.Fast)
     }
     
     @IBAction func playChipmunkAudio(sender: UIButton) {
-        playAudioWithVariableEffect(AudioEffect.Chipmunk)
+        playAudio(AudioEffect.Chipmunk)
     }
     
     @IBAction func playDarthvaderAudio(sender: UIButton) {
-        playAudioWithVariableEffect(AudioEffect.DarthVader)
+        playAudio(AudioEffect.DarthVader)
+    }
+    
+    @IBAction func playEchoAudio(sender: UIButton) {
+        playAudio(AudioEffect.Echo)
+    }
+    
+    // TODO: - Implement method
+    @IBAction func playReverbAudio(sender: UIButton) {
+        playAudio(AudioEffect.Reverb)
     }
     
     // MARK: - PlaySoundsViewController functions
-    func playAudioWithVariableEffect(audioEffect: AudioEffect) {
+    func playAudio(audioEffect: AudioEffect) {
         audioPlayer.stop()
         audioEngine.stop()
         audioEngine.reset()
         
         switch audioEffect {
+            
         case .Slow:
             fallthrough
         case .Fast:
@@ -78,7 +88,17 @@ class PlaySoundsViewController: UIViewController {
         case .Chipmunk:
             fallthrough
         case .DarthVader:
-            playAudioWithVariablePitch(audioEffect.rawValue)
+            let changePitchEffect = AVAudioUnitTimePitch()
+            changePitchEffect.pitch = audioEffect.rawValue
+            playAudioWithEffect(changePitchEffect)
+        case .Echo:
+            let echoEffect = AVAudioUnitDelay()
+            echoEffect.delayTime = Double(audioEffect.rawValue)
+            playAudioWithEffect(echoEffect)
+        case .Reverb:
+            let reverbEffect = AVAudioUnitReverb()
+            reverbEffect.wetDryMix = audioEffect.rawValue
+            playAudioWithEffect(reverbEffect)
         }
         
         stopButton.enabled = true
@@ -90,17 +110,14 @@ class PlaySoundsViewController: UIViewController {
         audioPlayer.currentTime = 0.0
         audioPlayer.play()
     }
-    
-    func playAudioWithVariablePitch(pitch: Float) {
+
+    func playAudioWithEffect(effect: AVAudioNode) {
         let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
+        audioEngine.attachNode(effect)
         
-        let changePitchEffect = AVAudioUnitTimePitch()
-        changePitchEffect.pitch = pitch
-        audioEngine.attachNode(changePitchEffect)
-        
-        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
-        audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
+        audioEngine.connect(audioPlayerNode, to: effect, format: nil)
+        audioEngine.connect(effect, to: audioEngine.outputNode, format: nil)
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         do {
@@ -128,4 +145,6 @@ enum AudioEffect: Float {
     case Fast = 1.5
     case Chipmunk = 1000
     case DarthVader = -1000
+    case Echo = 0.54
+    case Reverb = 70
 }

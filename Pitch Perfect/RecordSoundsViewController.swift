@@ -63,7 +63,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let directoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         let pathArray = [directoryPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
-        print(filePath)
         
         // Setup audio session
         let session = AVAudioSession.sharedInstance()
@@ -76,7 +75,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             print(error)
         }
         
-        // Initialize and prepare the recorder
+        // Initialize and prepare the recorder with empty settings
         do{
             try audioRecorder = AVAudioRecorder(URL: filePath!, settings: [:])
             audioRecorder.delegate = self
