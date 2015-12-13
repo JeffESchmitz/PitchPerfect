@@ -142,6 +142,8 @@ final class PlaySoundsViewController: UIViewController {
     */
 }
 
+// Enum to encapsulating the various effects utilized within the PlaySoundsViewController class.
+// NOTE: I chose to keep this enum code inside the PlaySoundsViewController class as it is the only place used.
 enum AudioEffect: Float {
     case Slow = 0.5
     case Fast = 1.5
