@@ -70,6 +70,9 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
     
     // MARK: - UI Interface Builder handler functions
     @IBAction func recordAudio(sender: UIButton) {
+        // Cited Reference: I observed this idea of switching on the state of an enum after reviewing VinceChan's PitchPerfect repo - https://github.com/vincechan/PitchPerfect.
+        // Initially I tried an if-elseif-else evaluation here and it got messy/problematic and I threw the code away twice.
+        // I liked Vince's simple approach and once the RecordingState enum was created, all the code feel into place. Thanks Vince!
         switch recordingState {
         case .Stopped:
             recordAudio()
@@ -125,7 +128,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
         let session = AVAudioSession.sharedInstance()
         do {
             try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            // suggested fix for low volume on iPhone by Alex Paul - https://github.com/alexpaul/PitchPerfect
+            // Cited Reference: Fix for low volume on iPhone by Alex Paul - https://github.com/alexpaul/PitchPerfect
             try session.overrideOutputAudioPort(AVAudioSessionPortOverride.Speaker)
             try session.setActive(true)
         } catch {
