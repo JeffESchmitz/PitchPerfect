@@ -66,7 +66,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
         // I liked Vince's simple approach and once the RecordingState enum was created, all the code feel into place. Thanks Vince!
         switch recordingState {
         case .Stopped:
-            recordAudio()
+            recordAudioAction()
         case .Recording:
             pauseAudio()
         case .Paused:
@@ -105,7 +105,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
     }
     
     // MARK: - RecordSoundsViewController functions
-    func recordAudio() -> Void {
+    func recordAudioAction() -> Void {
         changeViewBackgroundColor(backgroundLightRed)
         stopButton.hidden = false
         recordingInProgress.hidden = false
