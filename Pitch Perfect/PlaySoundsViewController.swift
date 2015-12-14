@@ -37,11 +37,6 @@ final class PlaySoundsViewController: UIViewController {
             print(error)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: - UI Interface Builder handler functions
     @IBAction func stopPlayingAudio(sender: UIButton) {
@@ -70,7 +65,6 @@ final class PlaySoundsViewController: UIViewController {
         playAudio(AudioEffect.Echo)
     }
     
-    // TODO: - Implement method
     @IBAction func playReverbAudio(sender: UIButton) {
         playAudio(AudioEffect.Reverb)
     }
@@ -130,19 +124,9 @@ final class PlaySoundsViewController: UIViewController {
         
         audioPlayerNode.play()
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
-// Enum to encapsulating the various effects utilized within the PlaySoundsViewController class.
+// Enum to encapsulate the effects utilized within the PlaySoundsViewController class.
 // NOTE: I chose to keep this enum code inside the PlaySoundsViewController class as it is the only place used.
 enum AudioEffect: Float {
     case Slow = 0.5

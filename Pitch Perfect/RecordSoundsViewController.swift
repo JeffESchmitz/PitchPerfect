@@ -21,6 +21,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
     
     let backgroundLightBlue = UIColor(red: 0.94, green: 1.00, blue: 1.00, alpha: 1.0)
     let backgroundLightRed = UIColor(red: 1.00, green: 0.89, blue: 0.89, alpha: 1.0)
+    let backgroundGray = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
     
     // Old habit of putting strings into one constant section.
     // This is twofold - 1) To avoid "magic strings" in the code. 2) For translation/internationalization later.
@@ -34,17 +35,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
     let resumeImageName = "resume"
     let pauseImageName = "pause"
     
-    // MARK: - View's overriden functions
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    // MARK: - View's overriden functions    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -110,7 +101,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
         recordedAudio = RecordedAudio(filePathUrl: recorder.url, title: recorder.url.lastPathComponent!)
         
         // navigate to PlaySoundsController scene
-        self.performSegueWithIdentifier(playSoundsSegueIdentifier, sender: recordedAudio)
+        performSegueWithIdentifier(playSoundsSegueIdentifier, sender: recordedAudio)
     }
     
     // MARK: - RecordSoundsViewController functions
@@ -156,6 +147,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
     }
     
     func pauseAudio() -> Void {
+        changeViewBackgroundColor(backgroundGray)
         audioRecorder.pause()
         recordingInProgress.text = pausedRecordingText
         recordingState = RecordingState.Paused
@@ -167,6 +159,7 @@ final class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegat
     }
     
     func resumeRecordingAudio() -> Void {
+        changeViewBackgroundColor(backgroundLightRed)
         audioRecorder.record()
         recordingState = RecordingState.Recording
         recordingInProgress.text = recordingInProgressText
